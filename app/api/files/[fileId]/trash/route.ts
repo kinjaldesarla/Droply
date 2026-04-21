@@ -8,6 +8,7 @@ export async function PATCH(
     request:NextRequest,
     props:{params:Promise<{fileId:string}>}
 ){
+    void request;
     try {
         const {userId}= await auth();
         if(!userId){
@@ -29,7 +30,7 @@ export async function PATCH(
          if (!file) {
         return NextResponse.json({ error: "File not found" }, { status: 404 });
         }
-        const [updatedFile]=await db.update(files).set({isTrash:!files.isTrash}).where(and(eq(files.id, fileId), eq(files.userId, userId))).returning();
+        const [updatedFile]=await db.update(files).set({isTrash:!file.isTrash}).where(and(eq(files.id, fileId), eq(files.userId, userId))).returning();
         const action = updatedFile.isTrash ? "moved to trash" : "restored";
     return NextResponse.json({
       ...updatedFile,

@@ -1,10 +1,8 @@
 import { db } from "@/lib/db";
 import { files } from "@/lib/db/schema";
 import { auth } from "@clerk/nextjs/server";
-import { user } from "@heroui/theme";
 import {and,eq, isNull} from 'drizzle-orm'
 import { NextRequest, NextResponse } from "next/server";
-import {v4 as uuidv4} from 'uuid'
 
 export async function GET(request:NextRequest){
     try {

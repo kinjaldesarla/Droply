@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 const isPublicRoute=createRouteMatcher(["/","/sign-in(.*)","/sign-up(.*)"])
 
-export default clerkMiddleware(async(auth,req)=>{
+const proxy = clerkMiddleware(async(auth,req)=>{
     const user=auth();
     const userId=(await user).userId;
     const url=new URL(req.url);
@@ -15,6 +15,8 @@ export default clerkMiddleware(async(auth,req)=>{
     await auth.protect()
   }
 })
+
+export default proxy;
 
 export const config = {
   matcher: [

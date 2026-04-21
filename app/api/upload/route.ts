@@ -3,7 +3,7 @@ import { files } from "@/lib/db/schema";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function Post(request:NextRequest){
+export async function POST(request:NextRequest){
     try {
           const {userId}=await auth();
         if(!userId){
@@ -15,7 +15,7 @@ export async function Post(request:NextRequest){
         if(bodyUserId!==userId){
              return NextResponse.json({error:"Unauthorized"},{status:401})
         }
-        if(!imagekit&&!imagekit.url){
+        if(!imagekit || !imagekit.url){
              return NextResponse.json({error:"invalid file upload data"},{status:401})
         }
 

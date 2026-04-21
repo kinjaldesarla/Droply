@@ -1,7 +1,6 @@
 import { db } from "@/lib/db";
 import { files } from "@/lib/db/schema";
 import { auth } from "@clerk/nextjs/server";
-import { error } from "console";
 import { and, eq } from "drizzle-orm";
 import ImageKit from "imagekit";
 import { NextRequest, NextResponse } from "next/server";
@@ -12,6 +11,7 @@ const imagekit=new ImageKit({
     urlEndpoint:process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT||""
 })
 export async function DELETE(request:NextRequest){
+    void request;
     try {
         const {userId}=await auth();
                 if(!userId){

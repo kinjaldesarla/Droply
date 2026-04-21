@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #06070a;
+  --foreground: #f5f7fb;
+  --surface: rgba(17, 24, 39, 0.72);
+  --surface-strong: rgba(10, 15, 24, 0.92);
+  --surface-border: rgba(255, 255, 255, 0.08);
 }
 
 @theme inline {
@@ -12,15 +15,101 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at top left, rgba(0, 111, 238, 0.2), transparent 32%),
+    radial-gradient(circle at top right, rgba(0, 111, 238, 0.12), transparent 24%),
+    linear-gradient(180deg, rgba(9, 12, 20, 0.98) 0%, rgba(4, 6, 12, 1) 100%);
+  text-rendering: optimizeLegibility;
+}
+
+body::selection {
+  background: rgba(0, 111, 238, 0.28);
+}
+
+a,
+button,
+[role="button"],
+input,
+textarea,
+select {
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    opacity 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(0, 111, 238, 0.85);
+  outline-offset: 2px;
+}
+
+@layer utilities {
+  .premium-shell {
+    @apply relative overflow-hidden;
+  }
+
+  .premium-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 10% 10%, rgba(0, 111, 238, 0.12), transparent 24%),
+      radial-gradient(circle at 90% 0%, rgba(0, 111, 238, 0.14), transparent 18%);
+    pointer-events: none;
+  }
+
+  .glass-panel {
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    box-shadow:
+      0 24px 80px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(22px);
+  }
+
+  .glass-panel-strong {
+    background: var(--surface-strong);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 26px 90px rgba(0, 0, 0, 0.34);
+    backdrop-filter: blur(20px);
+  }
+
+  .section-glow {
+    position: relative;
+  }
+
+  .section-glow::after {
+    content: "";
+    position: absolute;
+    inset: auto 10% -22% 10%;
+    height: 12rem;
+    border-radius: 9999px;
+    background: rgba(0, 111, 238, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .fine-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
 }
